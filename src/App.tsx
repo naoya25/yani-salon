@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import Login from "./components/Login";
-import SignUp from "./components/SignUp";
-import useAuth from "./components/useAuth";
-import "./style/App.css";
-import { auth } from "./components/firebase";
 import PostYanis from "./components/PostYanis";
 import PreviewPosts from "./components/PreviewPosts";
+import SignUp from "./components/SignUp";
+import "./style/App.css";
+import { auth } from "./types/firebase";
+import useAuth from "./types/useAuth";
 
 const App: React.FC = () => {
   const user = useAuth();

@@ -1,7 +1,7 @@
+import { addDoc, collection } from "firebase/firestore";
 import React, { useState } from "react";
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "./firebase";
-import useAuth from "./useAuth";
+import { db } from "../types/firebase";
+import useAuth from "../types/useAuth";
 
 const PostYanis: React.FC = () => {
   const [yanis, setYanis] = useState<number>(0);
@@ -15,7 +15,7 @@ const PostYanis: React.FC = () => {
         useremail: user?.email,
         timestamp: new Date(),
       });
-      setErrorMsg(`Document written with ID: ${docRef.id}`);
+      setErrorMsg('Success Yani!');
     } catch (e) {
       setErrorMsg(`Error adding document: ${e}`);
     }

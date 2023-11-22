@@ -1,71 +1,42 @@
+import { collection, onSnapshot } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { Timestamp, collection, onSnapshot } from "firebase/firestore";
-import { db } from "./firebase";
-
-interface Post {
-  yanis: number;
-  useremail: string;
-  timestamp: Timestamp;
-}
+import { db } from "../types/firebase";
+import useAuth from "../types/useAuth";
+import Post from "../types/Post";
+import PostsTable from "./PostsTable";
+import PostsChart from "./PostsChart";
 
 const PreviewPosts: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [errorMsg, setErrorMsg] = useState<string>("");
+  const currentUser = useAuth();
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(
-      collection(db, "Posts"),
-      (snapshot) => {
-        const postsData: Post[] = snapshot.docs.map((doc) => ({
-          ...doc.data(),
-        })) as Post[];
-        postsData.sort(
-          (a, b) => b.timestamp.toMillis() - a.timestamp.toMillis()
-        );
+    const unsubscribe = onSnapshot(collection(db, "Posts"), (snapshot) => {
+      try {
+        const postsData: Post[] = snapshot.docs
+          .map((doc) => doc.data() as Post)
+          .filter((post) => post.useremail === currentUser?.email)
+          .sort((a, b) => a.timestamp.toMillis() - b.timestamp.toMillis());
         setPosts(postsData);
-      },
-      (error) => {
-        setErrorMsg(`Error fetching data: ${error}`);
+      } catch (error) {
+        setErrorMsg(`データの取得中にエラーが発生しました: ${error}`);
       }
-    );
-    return () => unsubscribe();
-  }, []);
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [currentUser?.email]);
 
   return (
     <div>
       <h1>PreviewPosts</h1>
-
       {posts.length > 0 ? (
-        <table
-          style={{
-            margin: "auto",
-          }}
-        >
-          <thead>
-            <tr>
-              <th>本数</th>
-              <th>ユーザー</th>
-              <th>日付</th>
-            </tr>
-          </thead>
-          <tbody>
-            {posts.map((post, index) => (
-              <tr key={index}>
-                <td>{post.yanis}</td>
-                <td>{post.useremail}</td>
-                <td>
-                  {new Date(post.timestamp.toMillis()).toLocaleString("ja-JP", {
-                    year: "numeric",
-                    month: "2-digit",
-                    day: "2-digit",
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div>
+          <PostsTable posts={posts} />
+          <PostsChart posts={posts} />
+        </div>
       ) : (
         <p>No posts available</p>
       )}
