@@ -4,11 +4,14 @@ import SignUp from "./components/SignUp";
 import useAuth from "./components/useAuth";
 import "./style/App.css";
 import { auth } from "./components/firebase";
+import PostYanis from "./components/PostYanis";
+import PreviewPosts from "./components/PreviewPosts";
 
-function App() {
+const App: React.FC = () => {
   const user = useAuth();
   const [errorMsg, setErrorMsg] = useState<string>("");
-  const handleLogout = async () => {
+
+  const handleLogout = async (): Promise<void> => {
     try {
       await auth.signOut();
       setErrorMsg("Log out successfully!");
@@ -16,21 +19,26 @@ function App() {
       setErrorMsg(`Log out failed: ${error}`);
     }
   };
+
   return (
     <div className="App">
       {user ? (
         <div>
-          <p>ログイン中: {user?.email}</p>
+          <p>Logged in: {user?.email}</p>
           <button onClick={handleLogout}>Logout</button>
+          <PostYanis />
+          <PreviewPosts />
         </div>
       ) : (
-        <p>Please log in.</p>
+        <div>
+          <p>Please log in or sign up.</p>
+          <SignUp />
+          <Login />
+        </div>
       )}
       <p>{errorMsg}</p>
-      <SignUp />
-      <Login />
     </div>
   );
-}
+};
 
 export default App;
