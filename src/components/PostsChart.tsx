@@ -24,11 +24,6 @@ ChartJS.register(
 );
 
 const PostsChart: React.FC<{ posts: Post[] }> = ({ posts }) => {
-  const Scale = {
-    y: {
-      min: 0,
-    },
-  };
   const options = {
     responsive: true,
     plugins: {
@@ -40,7 +35,24 @@ const PostsChart: React.FC<{ posts: Post[] }> = ({ posts }) => {
         text: "累計ヤニ本数",
       },
     },
-    scales: Scale,
+    scales: {
+      y: {
+        min: 0,
+        title: {
+          display: true,
+          text: "累計本数",
+        },
+        position: "left",
+      },
+      y1: {
+        min: 0,
+        title: {
+          display: true,
+          text: "累計タール",
+        },
+        position: "right",
+      },
+    } as any,
   };
 
   const labels = posts.map((post) => formatTimestamp(post.timestamp.toDate()));
@@ -49,6 +61,11 @@ const PostsChart: React.FC<{ posts: Post[] }> = ({ posts }) => {
     cumulativeSum += post.yanis;
     return cumulativeSum;
   });
+  let tarTmp = 0;
+  const tarData = posts.map((post) => {
+    tarTmp += post.yanis * post.tar;
+    return tarTmp;
+  });
   const data = {
     labels,
     datasets: [
@@ -56,6 +73,13 @@ const PostsChart: React.FC<{ posts: Post[] }> = ({ posts }) => {
         label: "累計本数",
         data: yanisData,
         borderColor: "rgba(75,192,192,1)",
+        yAxisID: "y",
+      },
+      {
+        label: "累計タール",
+        data: tarData,
+        borderColor: "rgba(75,192,192,1)",
+        yAxisID: "y1",
       },
     ],
   };

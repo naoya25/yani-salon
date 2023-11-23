@@ -6,6 +6,7 @@ import SignUp from "./components/SignUp";
 import "./style/App.css";
 import { auth } from "./types/firebase";
 import useAuth from "./types/useAuth";
+import RankPreview from "./components/RankInfo";
 
 const App: React.FC = () => {
   const user = useAuth();
@@ -24,7 +25,8 @@ const App: React.FC = () => {
     <div className="App">
       {user ? (
         <div>
-          <p>Logged in: {user?.email}</p>
+          Logged in: {user?.email}
+          <RankPreview exp={500} />
           <button onClick={handleLogout}>Logout</button>
           <PostYanis />
           <PreviewPosts />

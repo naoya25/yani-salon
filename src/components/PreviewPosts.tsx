@@ -31,7 +31,7 @@ const PreviewPosts: React.FC = () => {
 
   return (
     <div>
-      <h1>PreviewPosts</h1>
+      <h3>Preview Posts</h3>
       {posts.length > 0 ? (
         <div>
           <PostsTable posts={posts} />
