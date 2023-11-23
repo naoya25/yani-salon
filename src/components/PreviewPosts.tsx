@@ -1,41 +1,19 @@
-import { collection, onSnapshot } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
-import { db } from "../types/firebase";
-import useAuth from "../types/useAuth";
-import Post from "../types/Post";
+import React from "react";
+import usePosts from "./usePosts";
 import PostsTable from "./PostsTable";
 import PostsChart from "./PostsChart";
+import Ranking from "./Ranking";
 
 const PreviewPosts: React.FC = () => {
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [errorMsg, setErrorMsg] = useState<string>("");
-  const currentUser = useAuth();
-
-  useEffect(() => {
-    const unsubscribe = onSnapshot(collection(db, "Posts"), (snapshot) => {
-      try {
-        const postsData: Post[] = snapshot.docs
-          .map((doc) => doc.data() as Post)
-          .filter((post) => post.useremail === currentUser?.email)
-          .sort((a, b) => a.timestamp.toMillis() - b.timestamp.toMillis());
-        setPosts(postsData);
-      } catch (error) {
-        setErrorMsg(`データの取得中にエラーが発生しました: ${error}`);
-      }
-    });
-
-    return () => {
-      unsubscribe();
-    };
-  }, [currentUser?.email]);
+  const { myposts, errorMsg } = usePosts();
 
   return (
     <div>
       <h3>Preview Posts</h3>
-      {posts.length > 0 ? (
+      {myposts.length > 0 ? (
         <div>
-          <PostsTable posts={posts} />
-          <PostsChart posts={posts} />
+          <PostsTable />
+          <PostsChart/>
         </div>
       ) : (
         <p>No posts available</p>

@@ -17,7 +17,8 @@ https://qiita.com/does_not_exist/items/c1c6c7cd2680b9a5eda7
 
 npm install --save chart.js react-chartjs-2
 
+# ページ切り替え
+npm install react-router-dom
+
 - ヤニ画像生成
-- ヤニレベルアッパー
-exp: 経験値
 - ヤニレコメンド

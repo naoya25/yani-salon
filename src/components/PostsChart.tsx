@@ -12,6 +12,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import usePosts from "./usePosts";
 
 ChartJS.register(
   CategoryScale,
@@ -23,12 +24,13 @@ ChartJS.register(
   Legend
 );
 
-const PostsChart: React.FC<{ posts: Post[] }> = ({ posts }) => {
+const PostsChart: React.FC = () => {
+  const { myposts } = usePosts();
   const options = {
     responsive: true,
     plugins: {
       legend: {
-        position: "top" as const,
+        position: "bottom" as const,
       },
       title: {
         display: true,
@@ -55,14 +57,16 @@ const PostsChart: React.FC<{ posts: Post[] }> = ({ posts }) => {
     } as any,
   };
 
-  const labels = posts.map((post) => formatTimestamp(post.timestamp.toDate()));
+  const labels = myposts.map((post) =>
+    formatTimestamp(post.timestamp.toDate())
+  );
   let cumulativeSum = 0;
-  const yanisData = posts.map((post) => {
+  const yanisData = myposts.map((post) => {
     cumulativeSum += post.yanis;
     return cumulativeSum;
   });
   let tarTmp = 0;
-  const tarData = posts.map((post) => {
+  const tarData = myposts.map((post) => {
     tarTmp += post.yanis * post.tar;
     return tarTmp;
   });
@@ -72,13 +76,13 @@ const PostsChart: React.FC<{ posts: Post[] }> = ({ posts }) => {
       {
         label: "累計本数",
         data: yanisData,
-        borderColor: "rgba(75,192,192,1)",
+        borderColor: "rgba(0, 0, 255, 0.5)",
         yAxisID: "y",
       },
       {
         label: "累計タール",
         data: tarData,
-        borderColor: "rgba(75,192,192,1)",
+        borderColor: "rgba(255, 0, 0, 0.5)",
         yAxisID: "y1",
       },
     ],

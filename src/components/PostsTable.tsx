@@ -1,8 +1,9 @@
 import React from "react";
-import Post from "../types/Post";
 import { formatTimestamp } from "../types/utils";
+import usePosts from "./usePosts";
 
-const PostsTable: React.FC<{ posts: Post[] }> = ({ posts }) => {
+const PostsTable: React.FC = () => {
+  const { myposts } = usePosts();
   return (
     <table
       style={{
@@ -18,7 +19,7 @@ const PostsTable: React.FC<{ posts: Post[] }> = ({ posts }) => {
         </tr>
       </thead>
       <tbody>
-        {posts.map((post, index) => (
+        {myposts.map((post, index) => (
           <tr key={index}>
             <td>{post.tobaccoBrand}</td>
             <td>{post.tar}</td>

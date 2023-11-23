@@ -1,4 +1,4 @@
-import { addDoc, collection } from "firebase/firestore";
+import { Timestamp, addDoc, collection } from "firebase/firestore";
 import React, { useState } from "react";
 import { db } from "../types/firebase";
 import useAuth from "../types/useAuth";
