@@ -22,3 +22,5 @@ npm install react-router-dom
 
 - ヤニ画像生成
 - ヤニレコメンド
+- 投稿削除
+

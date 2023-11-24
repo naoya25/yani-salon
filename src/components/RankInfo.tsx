@@ -1,6 +1,8 @@
 import React from "react";
 import calculateRank from "../types/rankCalculator";
 import usePosts from "./usePosts";
+import "../style/App.css";
+import YaniImage from "./YaniImage";
 
 const RankPreview: React.FC = () => {
   const { myposts } = usePosts();
@@ -9,7 +11,10 @@ const RankPreview: React.FC = () => {
   const progress = (rankInfo.exp / rankInfo.requiredExp) * 100;
   return (
     <div>
-      <p>現在のランク: {rankInfo.rank}</p>
+      <p>
+        Rank.{rankInfo.rank}: {`<${rankInfo.rankInitial}>`}
+        {rankInfo.rankTitle}
+      </p>
       <p>次のランクまでの残りタール: {rankInfo.requiredExp - rankInfo.exp}</p>
       <div
         className="progress-bar-container"
@@ -43,6 +48,7 @@ const RankPreview: React.FC = () => {
           >{`${Math.round(progress)}%`}</span>
         </div>
       </div>
+      <YaniImage height={600} width={400} />
     </div>
   );
 };
