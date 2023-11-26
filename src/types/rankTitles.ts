@@ -9,5 +9,5 @@ export const rankTitles: [string, string][] = [
   ["Health Hazard", "HH"],
   ["Health Dilemma", "HD"],
   ["Risk Taker", "RT"],
-  ["GOD Snoker", "GS"],
+  ["GOD Smoker", "GS"],
 ];

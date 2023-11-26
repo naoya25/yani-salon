@@ -9,7 +9,7 @@ import Ranking from "./components/Ranking";
 import { auth } from "./types/firebase";
 import useAuth from "./types/useAuth";
 import "./style/App.css";
-import Recommend from "./components/Recomend";
+import Recommend from "./components/Recommend";
 
 const App: React.FC = () => {
   const user = useAuth();
@@ -48,6 +48,9 @@ const App: React.FC = () => {
                 <li>
                   <Link to="/ranking">Ranking</Link>
                 </li>
+                <li>
+                  <Link to="/Recommend">Recommend</Link>
+                </li>
                 <li>Logged in: {user?.email}</li>
                 <li>
                   <a onClick={handleLogout}>Logout</a>
@@ -58,6 +61,7 @@ const App: React.FC = () => {
               <Route path="/" element={<PreviewPosts />} />
               <Route path="/post" element={<PostYanis />} />
               <Route path="/ranking" element={<Ranking />} />
+              <Route path="/Recommend" element={<Recommend />} />
             </Routes>
           </div>
         ) : (
@@ -86,7 +90,6 @@ const App: React.FC = () => {
           </div>
         )}
         <p>{errorMsg}</p>
-        <Recommend />
       </div>
     </BrowserRouter>
   );

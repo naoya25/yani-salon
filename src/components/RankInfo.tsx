@@ -2,7 +2,6 @@ import React from "react";
 import calculateRank from "../types/rankCalculator";
 import usePosts from "./usePosts";
 import "../style/App.css";
-import YaniImage from "./YaniImage";
 
 const RankPreview: React.FC = () => {
   const { myposts } = usePosts();
@@ -48,7 +47,6 @@ const RankPreview: React.FC = () => {
           >{`${Math.round(progress)}%`}</span>
         </div>
       </div>
-      <YaniImage height={600} width={400} />
     </div>
   );
 };
