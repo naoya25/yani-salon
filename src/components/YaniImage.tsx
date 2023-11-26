@@ -30,6 +30,7 @@ const YaniImage: React.FC<{ height: number; width: number }> = ({
         position: "relative",
         height: height,
         width: width,
+        margin: "auto",
       }}
     >
       <svg
