@@ -9,6 +9,7 @@ import Ranking from "./components/Ranking";
 import { auth } from "./types/firebase";
 import useAuth from "./types/useAuth";
 import "./style/App.css";
+import Recommend from "./components/Recomend";
 
 const App: React.FC = () => {
   const user = useAuth();
@@ -85,6 +86,7 @@ const App: React.FC = () => {
           </div>
         )}
         <p>{errorMsg}</p>
+        <Recommend />
       </div>
     </BrowserRouter>
   );
