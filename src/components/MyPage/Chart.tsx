@@ -1,18 +1,15 @@
-import React from "react";
-import { Line } from "react-chartjs-2";
-import Post from "../types/Post";
-import { formatTimestamp } from "../types/utils";
 import {
-  Chart as ChartJS,
   CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LineElement,
   LinearScale,
   PointElement,
-  LineElement,
   Title,
   Tooltip,
-  Legend,
 } from "chart.js";
-import usePosts from "./usePosts";
+import React from "react";
+import { Line } from "react-chartjs-2";
 
 ChartJS.register(
   CategoryScale,
@@ -24,8 +21,14 @@ ChartJS.register(
   Legend
 );
 
-const PostsChart: React.FC = () => {
-  const { myposts } = usePosts();
+const Chart: React.FC<{
+  title: string;
+  labels: string[];
+  dataLabel1: string;
+  data1: number[];
+  dataLabel2: string;
+  data2: number[];
+}> = ({ title, labels, dataLabel1, data1, dataLabel2, data2 }) => {
   const options = {
     responsive: true,
     plugins: {
@@ -34,7 +37,7 @@ const PostsChart: React.FC = () => {
       },
       title: {
         display: true,
-        text: "累計ヤニ本数",
+        text: title,
       },
     },
     scales: {
@@ -42,7 +45,7 @@ const PostsChart: React.FC = () => {
         min: 0,
         title: {
           display: true,
-          text: "累計本数",
+          text: dataLabel1,
         },
         position: "left",
       },
@@ -50,38 +53,25 @@ const PostsChart: React.FC = () => {
         min: 0,
         title: {
           display: true,
-          text: "累計タール",
+          text: dataLabel2,
         },
         position: "right",
       },
     } as any,
   };
 
-  const labels = myposts.map((post) =>
-    formatTimestamp(post.timestamp.toDate())
-  );
-  let cumulativeSum = 0;
-  const yanisData = myposts.map((post) => {
-    cumulativeSum += post.yanis;
-    return cumulativeSum;
-  });
-  let tarTmp = 0;
-  const tarData = myposts.map((post) => {
-    tarTmp += post.yanis * post.tar;
-    return tarTmp;
-  });
   const data = {
     labels,
     datasets: [
       {
-        label: "累計本数",
-        data: yanisData,
+        label: dataLabel1,
+        data: data1,
         borderColor: "rgba(0, 0, 255, 0.5)",
         yAxisID: "y",
       },
       {
-        label: "累計タール",
-        data: tarData,
+        label: dataLabel2,
+        data: data2,
         borderColor: "rgba(255, 0, 0, 0.5)",
         yAxisID: "y1",
       },
@@ -102,4 +92,4 @@ const PostsChart: React.FC = () => {
   );
 };
 
-export default PostsChart;
+export default Chart;

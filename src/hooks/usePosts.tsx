@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
 import { collection, onSnapshot } from "firebase/firestore";
-import { db } from "../types/firebase";
-import useAuth from "../types/useAuth";
-import Post from "../types/Post";
+import { useEffect, useState } from "react";
+import { db } from "../lib/firebase";
+import Post from "../types/post";
+import useAuth from "./useAuth";
 
 const usePosts = () => {
   const [allposts, setAllPosts] = useState<Post[]>([]);

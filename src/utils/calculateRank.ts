@@ -1,4 +1,4 @@
-import { rankTitles } from "./rankTitles";
+import { rankTitles } from "../constants/rankTitles";
 
 interface RankInfo {
   rank: number;

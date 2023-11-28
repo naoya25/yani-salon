@@ -1,4 +1,4 @@
-const tobaccoBrands = [
+export const tobaccos: string[] = [
   "マールボロ (Marlboro)",
   "キャメル (Camel)",
   "ウィンストン (Winston)",
@@ -30,5 +30,3 @@ const tobaccoBrands = [
   "プレミア (Premier)",
   "エグゼクティブ (Executive)",
 ];
-
-export default tobaccoBrands;

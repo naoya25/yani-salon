@@ -1,9 +1,9 @@
 import React from "react";
-import calculateRank from "../types/rankCalculator";
-import usePosts from "./usePosts";
+import usePosts from "../hooks/usePosts";
 import "../style/App.css";
+import calculateRank from "../utils/calculateRank";
 
-const RankPreview: React.FC = () => {
+const Header: React.FC = () => {
   const { myposts } = usePosts();
   const exp = myposts.reduce((total, post) => total + post.yanis + post.tar, 0);
   const rankInfo = calculateRank(exp);
@@ -51,4 +51,4 @@ const RankPreview: React.FC = () => {
   );
 };
 
-export default RankPreview;
+export default Header;

@@ -1,10 +1,10 @@
-import { Timestamp, addDoc, collection } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import React, { useState } from "react";
-import { db } from "../types/firebase";
-import useAuth from "../types/useAuth";
-import tobaccoBrands from "../types/tobaccoBrands";
+import useAuth from "../hooks/useAuth";
+import { db } from "../lib/firebase";
+import { tobaccos } from "../constants/tobaccos";
 
-const PostYanis: React.FC = () => {
+const PostPage: React.FC = () => {
   const [yanis, setYanis] = useState<number | null>();
   const [selectedBrand, setSelectedBrand] = useState<string>("");
   const [customBrand, setCustomBrand] = useState<string>("");
@@ -45,7 +45,7 @@ const PostYanis: React.FC = () => {
           onChange={(e) => setSelectedBrand(e.target.value)}
         >
           <option value="">選択してください</option>
-          {tobaccoBrands.map((brand) => (
+          {tobaccos.map((brand) => (
             <option key={brand} value={brand}>
               {brand}
             </option>
@@ -77,4 +77,4 @@ const PostYanis: React.FC = () => {
   );
 };
 
-export default PostYanis;
+export default PostPage;
