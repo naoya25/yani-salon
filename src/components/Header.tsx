@@ -1,52 +1,85 @@
-import React from "react";
+import React, { useState } from "react";
 import usePosts from "../hooks/usePosts";
-import "../style/App.css";
+import useAuth from "../hooks/useAuth";
+import { Link, Route, Routes } from "react-router-dom";
 import calculateRank from "../utils/calculateRank";
+import Home from "../pages/Home";
+import MyPage from "../pages/MyPage";
+import PostPage from "../pages/PostPage";
+import RankingPage from "../pages/RankingPage";
+import "../style/App.css";
+import LogoutBtn from "./Login/LogoutBtn";
+import ProgressBar from "./UI/ProgressBar";
 
 const Header: React.FC = () => {
+  const user = useAuth();
+  const [errorMsg, setErrorMsg] = useState<string>("");
+
   const { myposts } = usePosts();
   const exp = myposts.reduce((total, post) => total + post.yanis + post.tar, 0);
   const rankInfo = calculateRank(exp);
   const progress = (rankInfo.exp / rankInfo.requiredExp) * 100;
+
   return (
     <div>
-      <p>
-        Rank.{rankInfo.rank}: {`<${rankInfo.rankInitial}>`}
-        {rankInfo.rankTitle}
-      </p>
-      <p>次のランクまでの残りタール: {rankInfo.requiredExp - rankInfo.exp}</p>
-      <div
-        className="progress-bar-container"
-        style={{
-          width: "80%",
-          height: 20,
-          margin: "auto",
-          backgroundColor: "#eee",
-          borderRadius: 5,
-          overflow: "hidden",
-        }}
-      >
-        <div
-          className="progress-bar"
+      <div>
+        <p>
+          Rank.{rankInfo.rank}: {`<${rankInfo.rankInitial}>`}
+          {rankInfo.rankTitle}
+        </p>
+        <p>次のランクまでの残りタール: {rankInfo.requiredExp - rankInfo.exp}</p>
+        <ProgressBar progress={progress} />
+      </div>
+      <nav style={{ display: "flex", justifyContent: "center" }}>
+        <ul
           style={{
-            width: `${progress}%`,
-            height: "100%",
-            backgroundColor: "#4caf50",
-            transition: "width 0.3s ease",
             display: "flex",
-            alignItems: "center",
-            justifyContent: "flex-end",
+            width: 600,
+            justifyContent: "space-around",
           }}
         >
-          <span
-            className="progress-label"
-            style={{
-              marginRight: 5,
-              color: "#fff",
-            }}
-          >{`${Math.round(progress)}%`}</span>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/mypage">My page</Link>
+          </li>
+          <li>
+            <Link to="/post">Post</Link>
+          </li>
+          <li>
+            <Link to="/ranking">Ranking</Link>
+          </li>
+          <li>Logged in: {user?.email}</li>
+          <li>
+            <LogoutBtn onLogoutError={setErrorMsg} />
+          </li>
+        </ul>
+      </nav>
+      {errorMsg && (
+        <div
+          style={{
+            color: "red",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <p>{errorMsg}</p>
+          <a
+            style={{ cursor: "pointer", marginLeft: 10 }}
+            onClick={() => setErrorMsg("")}
+          >
+            X
+          </a>
         </div>
-      </div>
+      )}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/mypage" element={<MyPage />} />
+        <Route path="/post" element={<PostPage />} />
+        <Route path="/ranking" element={<RankingPage />} />
+      </Routes>
     </div>
   );
 };

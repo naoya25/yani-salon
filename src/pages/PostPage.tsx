@@ -1,8 +1,8 @@
-import { addDoc, collection } from "firebase/firestore";
 import React, { useState } from "react";
-import useAuth from "../hooks/useAuth";
+import { addDoc, collection } from "firebase/firestore";
 import { db } from "../lib/firebase";
 import { tobaccos } from "../constants/tobaccos";
+import useAuth from "../hooks/useAuth";
 
 const PostPage: React.FC = () => {
   const [yanis, setYanis] = useState<number | null>();
@@ -23,7 +23,7 @@ const PostPage: React.FC = () => {
         setErrorMsg("本数は1以上にしてください");
         return;
       }
-      const docRef = await addDoc(collection(db, "Posts"), {
+      await addDoc(collection(db, "Posts"), {
         tobaccoBrand: brandToPost,
         tar: tar,
         yanis: yanis,
@@ -52,13 +52,14 @@ const PostPage: React.FC = () => {
           ))}
         </select>
       </label>
+      <br />
       <label>
-        または、他の銘柄を入力:
+        (選択肢に無い場合はこちらに入力:
         <input
           type="text"
           value={customBrand}
           onChange={(e) => setCustomBrand(e.target.value)}
-        />
+        />)
       </label>
       <br />
       <label>
@@ -72,7 +73,24 @@ const PostPage: React.FC = () => {
       </label>
       <br />
       <button onClick={handlePost}>Post</button>
-      <p style={{ color: "red" }}>{errorMsg}</p>
+      {errorMsg && (
+        <div
+          style={{
+            color: "red",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <p>{errorMsg}</p>
+          <a
+            style={{ cursor: "pointer", marginLeft: 10 }}
+            onClick={() => setErrorMsg("")}
+          >
+            X
+          </a>
+        </div>
+      )}
     </div>
   );
 };

@@ -14,7 +14,7 @@ const usePosts = () => {
     const unsubscribe = onSnapshot(collection(db, "Posts"), (snapshot) => {
       try {
         const postsData: Post[] = snapshot.docs
-          .map((doc) => doc.data() as Post)
+          .map((doc) => ({ ...doc.data(), id: doc.id } as Post))
           .sort((a, b) => a.timestamp.toMillis() - b.timestamp.toMillis());
         setAllPosts(postsData);
         setMyPosts(

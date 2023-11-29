@@ -30,7 +30,6 @@ const YaniImage: React.FC<{ height: number; width: number }> = ({
         position: "relative",
         height: height,
         width: width,
-        margin: "auto",
       }}
     >
       <svg
@@ -58,7 +57,6 @@ const YaniImage: React.FC<{ height: number; width: number }> = ({
         style={{
           height: height,
           width: "auto",
-          border: "1px solid black",
           position: "absolute",
           top: 0,
           left: 0,

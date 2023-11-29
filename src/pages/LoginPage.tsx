@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, Route, Routes } from "react-router-dom";
-import Login from "../components/LoginPage/Login";
-import SignUp from "../components/LoginPage/SignUp";
+import Login from "../components/Login/Login";
+import SignUp from "../components/Login/SignUp";
 
 const LoginPage: React.FC = () => {
   return (

@@ -1,7 +1,6 @@
 import React from "react";
-import Chart from "../components/MyPage/Chart";
-import PostsTable from "../components/MyPage/PostsTable";
-import YaniImage from "../components/YaniImage";
+import Chart from "../components/UI/Chart";
+import PostsTable from "../components/UI/PostsTable";
 import usePosts from "../hooks/usePosts";
 import { formatTimestamp } from "../utils/formatTimestamp";
 
@@ -23,7 +22,6 @@ const MyPage: React.FC = () => {
 
   return (
     <div>
-      <YaniImage height={600} width={400} />
       <h3>Preview Posts</h3>
       {myposts.length > 0 ? (
         <div>
