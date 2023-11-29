@@ -7,7 +7,7 @@ const LogoutBtn: React.FC<{ onLogoutError: (error: string) => void }> = ({
 }) => {
   const handleLogout = async (): Promise<void> => {
     try {
-      // await auth.signOut();
+      await auth.signOut();
       onLogoutError("Log out successfully!");
     } catch (error) {
       onLogoutError(`Log out failed: ${error}`);

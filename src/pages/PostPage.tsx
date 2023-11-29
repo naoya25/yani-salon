@@ -59,7 +59,8 @@ const PostPage: React.FC = () => {
           type="text"
           value={customBrand}
           onChange={(e) => setCustomBrand(e.target.value)}
-        />)
+        />
+        )
       </label>
       <br />
       <label>
