@@ -10,6 +10,7 @@ import RankingPage from "../pages/RankingPage";
 import "../style/App.css";
 import LogoutBtn from "./Login/LogoutBtn";
 import ProgressBar from "./UI/ProgressBar";
+import UploadImage from "../pages/YannisPage";
 
 const Header: React.FC = () => {
   const user = useAuth();
@@ -48,6 +49,9 @@ const Header: React.FC = () => {
             <Link to="/post">Post</Link>
           </li>
           <li>
+            <Link to="/yannis">Yannis</Link>
+          </li>
+          <li>
             <Link to="/ranking">Ranking</Link>
           </li>
           <li>Logged in: {user?.email}</li>
@@ -78,6 +82,7 @@ const Header: React.FC = () => {
         <Route path="/" element={<Home />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/post" element={<PostPage />} />
+        <Route path="/yannis" element={<UploadImage />} />
         <Route path="/ranking" element={<RankingPage />} />
       </Routes>
     </div>

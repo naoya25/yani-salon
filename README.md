@@ -20,6 +20,9 @@ npm install --save chart.js react-chartjs-2
 # ページ切り替え
 npm install react-router-dom
 
+# 画像投稿
+npm install image-validator
+
 - ヤニ画像生成
 - ヤニレコメンド
 - 投稿削除
